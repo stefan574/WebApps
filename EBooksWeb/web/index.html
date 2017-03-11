@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ebooks Store</title>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Presentation Layer for EBooks Project"/>
+    <meta name="keywords" content="HTML, CSS, Java, Presentation Layer"/>
+    <meta name="author" content="Stefan-Alexandru Rentea"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="./CSS/css.css"/>
+    <link rel="stylesheet" type="text/css" href="./CSS/menu.css"/>
+    <link rel="stylesheet" type="text/css" href="./CSS/mail.css"/>
+    <link rel="stylesheet" type="text/css" href="./CSS/table.css"/>
+    <script src="./JS/contact.js"></script>
+    <script src="./JS/validator.js"></script>
+</head>
+    
+<body>
+    <div class="blacklined">
+	<div class="dropdown">
+            <button class="dropbtn" onclick="home()">HOME</button>
+	</div>
+	<div class="dropdown">
+            <button class="dropbtn">TABLES</button>
+            <div class="dropdown-content">
+		<a href="#">EBOOKS</a>
+		<a href="#">AUTHORS</a>
+		<a href="#">RATINGS</a>
+            </div>
+	</div>
+	<div class="dropdown">
+            <button class="dropbtn" onclick="moveLeftContact()">CONTACT</button>
+	</div>
+    </div>
+    <div class="centered">
+        <hr/>
+        <hr class="hr2"/>
+        <h1>EBOOKS STORE</h1>
+        <hr class="hr2"/>
+        <hr/>
+	</div>
+    <div id="table1">
+	
+    </div>
+    <div id="contact">
+        <img src="./IMG/picture1.jpg" id="img1" alt="No Image, Sorry!"/>
+        <address>
+            <div id="whiteBackground">
+                <b>Author:</b>
+                <br/>Stefan-Alexandru Rentea
+                <br/><b>Address:</b>
+                <br/>stefan.alex.rentea@gmail.com
+                <br/><b>Country:</b>
+                <br/>Romania
+		<br/><b>Tel:</b>
+                <br/>0766 XX XX XX 
+            </div>
+	</address>
+        <div id="mailForm">
+            <form method="post" enctype="text/plain" name="contactform" action="./PHP/contact-form-handler.php">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your name.."/>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="Your email.."/>
+                <label for="message">Message:</label>
+                <input type="text" id="message" name="message" placeholder="Your message.." size="50"/>
+                <input type="submit" value="Submit"/>
+            </form>
+        </div>
+    </div>
+    <footer>Copyright &copy; ScoalaInformala.com</footer>
+    
+<script language="JavaScript">
+var frmvalidator  = new Validator("contactform");
+frmvalidator.addValidation("name","req","Please provide your name"); 
+frmvalidator.addValidation("email","req","Please provide your email"); 
+frmvalidator.addValidation("email","email","Please enter a valid email address"); 
+</script>
+</body>
+</html>
