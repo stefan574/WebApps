@@ -122,7 +122,7 @@ public class EBooksButtons extends HttpServlet {
                             exit = true;
                 
                 if (exit)
-                    request.getRequestDispatcher("./ebooks.jsp").forward(request, response);
+                    request.getRequestDispatcher("./redirectEBooks.jsp").forward(request, response);
                 else {
                     try {
                         Class.forName(DRIVER);
@@ -154,7 +154,7 @@ public class EBooksButtons extends HttpServlet {
                                 Logger.getLogger(EBooksButtons.class.getName()).log(Level.SEVERE, null, e);
                             }
                     }
-                    request.getRequestDispatcher("./ebooks.jsp").forward(request, response);
+                    request.getRequestDispatcher("./redirectEBooks.jsp").forward(request, response);
                 }
             }
             else

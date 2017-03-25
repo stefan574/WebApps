@@ -57,9 +57,9 @@ public class RatingsButtons extends HttpServlet {
                     statement = connection.createStatement();
                     for (String isbn_user_name : checkboxes) {
                         statement.execute("DELETE FROM ROOT.RATINGS WHERE ISBN = '" 
-                                + isbn_user_name.substring(0, 15) 
-                                + "' AND USER_NAME = '" + isbn_user_name.substring(15) + "'");
-                        calculateRating(statement, isbn_user_name.substring(0, 15));
+                                + isbn_user_name.substring(0, 16) 
+                                + "' AND USER_NAME = '" + isbn_user_name.substring(16) + "'");
+                        calculateRating(statement, isbn_user_name.substring(0, 16));
                     }
                 }
                 catch (SQLException | ClassNotFoundException e) {
@@ -95,10 +95,17 @@ public class RatingsButtons extends HttpServlet {
                     request.getParameter("insert_description"),
                     request.getParameter("insert_rating")};
                 
-                if (values[0].equals("none") 
-                        && values[1].equals("") 
-                        && values[3].equals(""))
+                if (request.getSession().getAttribute("roleUser").equals("user"))
+                    values[1] = (String) request.getSession().getAttribute("currentUser");
+                
+                if (values[0].equals("none")) 
                         exit = true;
+                else
+                    if (values[1].equals("")) 
+                        exit = true;
+                    else
+                        if (values[3].equals(""))
+                            exit = true;
                 
                 if (values[2].equals(""))
                     values[2] = "No Description";
@@ -157,7 +164,10 @@ public class RatingsButtons extends HttpServlet {
                             && request.getParameter("insert_user_name").equals(""))
                             || (checkboxes == null 
                             && !request.getParameter("insert_isbn").equals("none") 
-                            && !request.getParameter("insert_user_name").equals(""))) {
+                            && !request.getParameter("insert_user_name").equals(""))
+                            || (checkboxes == null 
+                            && !request.getParameter("insert_isbn").equals("none") 
+                            && request.getSession().getAttribute("roleUser").equals("user"))) {
                         
                         List<Parameter> list = new ArrayList<>();
                         
@@ -179,22 +189,40 @@ public class RatingsButtons extends HttpServlet {
                                 statement = connection.createStatement();
                                 if (checkboxes == null)
                                     for (Parameter param : list)
-                                        if (param.getName().equalsIgnoreCase("description"))
-                                            statement.execute("UPDATE ROOT.RATINGS SET \"" 
-                                                    + param.getName() + "\" = '" 
-                                                    + param.getValue() + "' WHERE ISBN = '" 
-                                                    + request.getParameter("insert_isbn") 
-                                                    + "' AND USER_NAME = '" 
-                                                    + request.getParameter("insert_user_name") + "'");
-                                        else {
-                                            statement.execute("UPDATE ROOT.RATINGS SET \"" 
-                                                    + param.getName() + "\" = " 
-                                                    + param.getValue() + " WHERE ISBN = '" 
-                                                    + request.getParameter("insert_isbn") 
-                                                    + "' AND USER_NAME = '" 
-                                                    + request.getParameter("insert_user_name") + "'");
-                                            calculateRating(statement, request.getParameter("insert_isbn"));
-                                        }
+                                        if (!request.getSession().getAttribute("roleUser").equals("user"))
+                                            if (param.getName().equalsIgnoreCase("description"))
+                                                statement.execute("UPDATE ROOT.RATINGS SET \"" 
+                                                        + param.getName() + "\" = '" 
+                                                        + param.getValue() + "' WHERE ISBN = '" 
+                                                        + request.getParameter("insert_isbn") 
+                                                        + "' AND USER_NAME = '" 
+                                                        + request.getParameter("insert_user_name") + "'");
+                                            else {
+                                                statement.execute("UPDATE ROOT.RATINGS SET \"" 
+                                                        + param.getName() + "\" = " 
+                                                        + param.getValue() + " WHERE ISBN = '" 
+                                                        + request.getParameter("insert_isbn") 
+                                                        + "' AND USER_NAME = '" 
+                                                        + request.getParameter("insert_user_name") + "'");
+                                                calculateRating(statement, request.getParameter("insert_isbn"));
+                                            }
+                                        else 
+                                            if (param.getName().equalsIgnoreCase("description"))
+                                                statement.execute("UPDATE ROOT.RATINGS SET \"" 
+                                                        + param.getName() + "\" = '" 
+                                                        + param.getValue() + "' WHERE ISBN = '" 
+                                                        + request.getParameter("insert_isbn") 
+                                                        + "' AND USER_NAME = '" 
+                                                        + (String) request.getSession().getAttribute("currentUser") + "'");
+                                            else {
+                                                statement.execute("UPDATE ROOT.RATINGS SET \"" 
+                                                        + param.getName() + "\" = " 
+                                                        + param.getValue() + " WHERE ISBN = '" 
+                                                        + request.getParameter("insert_isbn") 
+                                                        + "' AND USER_NAME = '" 
+                                                        + (String) request.getSession().getAttribute("currentUser") + "'");
+                                                calculateRating(statement, request.getParameter("insert_isbn"));
+                                            }
                                 else {
                                     for (String isbn_user_name : checkboxes)
                                         for (Parameter param : list)
@@ -202,17 +230,17 @@ public class RatingsButtons extends HttpServlet {
                                                 statement.execute("UPDATE ROOT.RATINGS SET \"" 
                                                         + param.getName() + "\" = '" 
                                                         + param.getValue() + "' WHERE ISBN = '" 
-                                                        + isbn_user_name.substring(0, 15)
+                                                        + isbn_user_name.substring(0, 16)
                                                         + "' AND USER_NAME = '" 
-                                                        + isbn_user_name.substring(15) + "'");
+                                                        + isbn_user_name.substring(16) + "'");
                                             else {
                                                 statement.execute("UPDATE ROOT.RATINGS SET \"" 
                                                         + param.getName() + "\" = " 
                                                         + param.getValue() + " WHERE ISBN = '" 
-                                                        + isbn_user_name.substring(0, 15)
+                                                        + isbn_user_name.substring(0, 16)
                                                         + "' AND USER_NAME = '" 
-                                                        + isbn_user_name.substring(15) + "'");
-                                                calculateRating(statement, isbn_user_name.substring(0, 15));
+                                                        + isbn_user_name.substring(16) + "'");
+                                                calculateRating(statement, isbn_user_name.substring(0, 16));
                                             }
                                 }
                             }
@@ -248,13 +276,13 @@ public class RatingsButtons extends HttpServlet {
         ResultSet resultSet = null;
         try {
             resultSet = statement.executeQuery("SELECT AVG(RATING) FROM ROOT.RATINGS WHERE ISBN = '" + isbn + "'");
-            if (resultSet.next()) {
+            resultSet.next();
+            if (resultSet.getString(1) == null)
+                statement.execute("UPDATE ROOT.EBOOKS SET \"RATING\" = 0 WHERE ISBN = '" + isbn + "'");
+            else
                 statement.execute("UPDATE ROOT.EBOOKS SET \"RATING\" = " 
                         + doPrecisionRating(resultSet.getString(1)) 
                         + " WHERE ISBN = '" + isbn + "'");
-            }
-            else
-                statement.execute("UPDATE ROOT.EBOOKS SET \"RATING\" = 0 WHERE ISBN = '" + isbn + "'");
         }
         catch (SQLException e) {
             Logger.getLogger(RatingsButtons.class.getName()).log(Level.SEVERE, null, e);

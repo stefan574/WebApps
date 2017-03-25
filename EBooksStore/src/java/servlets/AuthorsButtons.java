@@ -58,8 +58,8 @@ public class AuthorsButtons extends HttpServlet {
                     statement = connection.createStatement();
                     for (String isbn_id : checkboxes)
                         statement.execute("DELETE FROM ROOT.AUTHORS WHERE ISBN = '" 
-                                + isbn_id.substring(0, isbn_id.length() - 1) 
-                                + "' AND ID = " + isbn_id.substring(isbn_id.length() - 1));
+                                + isbn_id.substring(0, 16) 
+                                + "' AND ID = " + isbn_id.substring(16));
                 }
                 catch (SQLException | ClassNotFoundException e) {
                     Logger.getLogger(AuthorsButtons.class.getName()).log(Level.SEVERE, null, e);
@@ -116,7 +116,7 @@ public class AuthorsButtons extends HttpServlet {
                             exit = true;
                 
                 if (exit)
-                    request.getRequestDispatcher("./authors.jsp").forward(request, response);
+                    request.getRequestDispatcher("./redirectAuthors.jsp").forward(request, response);
                 else {
                     ResultSet resultSet = null;
                     try {
@@ -173,7 +173,7 @@ public class AuthorsButtons extends HttpServlet {
                                 Logger.getLogger(AuthorsButtons.class.getName()).log(Level.SEVERE, null, e);
                             }
                     }
-                    request.getRequestDispatcher("./authors.jsp").forward(request, response);
+                    request.getRequestDispatcher("./redirectAuthors.jsp").forward(request, response);
                 }
             }
             else
@@ -210,7 +210,7 @@ public class AuthorsButtons extends HttpServlet {
                                 else {
                                     Set<String> set = new HashSet<>();
                                     for (String id : checkboxes)
-                                        set.add(id.substring(id.length() - 1));
+                                        set.add(id.substring(16));
                                     for (String id : set)
                                         for (Parameter param : list)
                                             statement.execute("UPDATE ROOT.AUTHORS SET \"" 
@@ -220,7 +220,7 @@ public class AuthorsButtons extends HttpServlet {
                                 }
                             }
                             catch (SQLException | ClassNotFoundException e) {
-                                Logger.getLogger(EBooksButtons.class.getName()).log(Level.SEVERE, null, e);
+                                Logger.getLogger(AuthorsButtons.class.getName()).log(Level.SEVERE, null, e);
                             }
                             finally {
                                 if (statement != null)
@@ -228,14 +228,14 @@ public class AuthorsButtons extends HttpServlet {
                                         statement.close();
                                     }
                                     catch (SQLException e) {
-                                         Logger.getLogger(EBooksButtons.class.getName()).log(Level.SEVERE, null, e);
+                                         Logger.getLogger(AuthorsButtons.class.getName()).log(Level.SEVERE, null, e);
                                     }
                                 if (connection != null)
                                     try {
                                         connection.close();
                                     }
                                     catch (SQLException e) {
-                                        Logger.getLogger(EBooksButtons.class.getName()).log(Level.SEVERE, null, e);
+                                        Logger.getLogger(AuthorsButtons.class.getName()).log(Level.SEVERE, null, e);
                                     }
                             }
                             request.getRequestDispatcher("./authors.jsp").forward(request, response);

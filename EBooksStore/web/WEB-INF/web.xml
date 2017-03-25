@@ -12,6 +12,18 @@
         <servlet-name>RatingsButtons</servlet-name>
         <servlet-class>servlets.RatingsButtons</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginEBooks</servlet-name>
+        <servlet-class>servlets.LoginEBooks</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogOutEBooks</servlet-name>
+        <servlet-class>servlets.LogOutEBooks</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminButtons</servlet-name>
+        <servlet-class>servlets.AdminButtons</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EBooksButtons</servlet-name>
         <url-pattern>/EBooksButtons</url-pattern>
@@ -23,6 +35,18 @@
     <servlet-mapping>
         <servlet-name>RatingsButtons</servlet-name>
         <url-pattern>/RatingsButtons</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginEBooks</servlet-name>
+        <url-pattern>/LoginEBooks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOutEBooks</servlet-name>
+        <url-pattern>/LogOutEBooks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminButtons</servlet-name>
+        <url-pattern>/AdminButtons</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

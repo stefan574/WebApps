@@ -1,37 +1,22 @@
 <%-- 
     Document   : index
-    Created on : Mar 20, 2017, 5:06:36 PM
-    Author     : Stefan-Alexandru Rentea
+    Created on : Mar 24, 2017, 11:32:20 AM
+    Author     : Stefan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<head>
-    <title>Main Page</title>
-    <meta name="description" content="Presentation Layer for EBooks Project"/>
-    <meta name="keywords" content="HTML, CSS, Java, Presentation Layer"/>
-    <meta name="author" content="Stefan-Alexandru Rentea"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="./CSS/css.css"/>
-    <link rel="stylesheet" type="text/css" href="./CSS/menu.css"/>
-</head>
+<html>
+    <head>
+        <title>Login Page</title>
+        <meta name="description" content="Presentation Layer for EBooks Project"/>
+        <meta name="keywords" content="HTML, CSS, Java, Presentation Layer"/>
+        <meta name="author" content="Stefan-Alexandru Rentea"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="./CSS/css.css"/>
+        <link rel="stylesheet" type="text/css" href="./CSS/login_form.css"/>
+    </head>
 <body>
-    <div class="blacklined">
-	<div class="dropdown">
-            <button class="dropbtn" onclick="window.location = 'index.jsp'">HOME</button>
-	</div>
-	<div class="dropdown">
-            <button class="dropbtn">TABLES</button>
-            <div class="dropdown-content">
-		<a href="ebooks.jsp">EBOOKS</a>
-		<a href="authors.jsp">AUTHORS</a>
-		<a href="ratings.jsp">RATINGS</a>
-            </div>
-	</div>
-	<div class="dropdown">
-            <button class="dropbtn">CONTACT</button>
-	</div>
-    </div>
     <div class="centered">
         <hr/>
         <hr class="hr2"/>
@@ -39,8 +24,15 @@
         <hr class="hr2"/>
         <hr/>
     </div>
-    
+    <div id="divForm">
+        <form method="GET" enctype="text/plain" action="LoginEBooks">
+            <label>USER:</label>
+            <input type="text" name="insert_user" placeholder="Your user name.."/>
+            <label>PASSWORD:</label>
+            <input type="password" name="insert_password" placeholder="Your password.."/>
+            <input type="submit" value="LOGIN" name="login_button"/>
+        </form>
+    </div>
     <footer>Copyright &copy; ScoalaInformala.com</footer>
-    
 </body>
 </html>
