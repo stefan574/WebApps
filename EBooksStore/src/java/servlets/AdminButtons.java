@@ -202,7 +202,8 @@ public class AdminButtons extends HttpServlet {
                                                     + request.getParameter("insert_user_name") + "'");
                                         }
                                         else {
-                                            if (request.getParameter("insert_user_role").equals("user"))
+                                            if (request.getParameter("insert_user_role").equals("user")
+                                                    && !request.getParameter("insert_user_name").equals("admin"))
                                                 statement.execute("UPDATE ROOT.USERS SET \"USER_ROLE\" = "
                                                     + "'user' WHERE USER_NAME = '" 
                                                     + request.getParameter("insert_user_name") + "'");
@@ -251,7 +252,8 @@ public class AdminButtons extends HttpServlet {
                                                         + user + "'");
                                             }
                                             else {
-                                                if (request.getParameter("insert_user_role").equals("user"))
+                                                if (request.getParameter("insert_user_role").equals("user")
+                                                        && !user.equals("admin"))
                                                     statement.execute("UPDATE ROOT.USERS SET \"USER_ROLE\" = "
                                                         + "'user' WHERE USER_NAME = '" 
                                                         + user + "'");
