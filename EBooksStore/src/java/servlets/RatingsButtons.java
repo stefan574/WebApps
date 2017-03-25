@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -321,23 +320,6 @@ public class RatingsButtons extends HttpServlet {
                             && !Character.isDigit(_string.charAt(i)))
                         return false;
                 break;
-            case "numberOfPages":
-                if (isInt(string))
-                    if (!(Integer.parseInt(string) > 4
-                            && Integer.parseInt(string) < 10000))
-                        return false;
-                else
-                    return false;
-                break;
-            case "price":
-                if (isDouble(string)) {
-                    if (!(Double.parseDouble(string) > -1
-                            && Double.parseDouble(string) < 100000))
-                        return false;
-                }
-                else
-                    return false;       
-                break;
             case "rating":
                 if (!string.matches("0|0.0|0.5|1|1.0|1.5|2|2.0|2.5|3|3.0|3.5|4|4.0|4.5|5|5.0"))
                     return false;    
@@ -346,24 +328,6 @@ public class RatingsButtons extends HttpServlet {
                 break;
         }
         return true;
-    }
-    
-    /*
-     * Uses a pattern to verify if given object can be converted to
-     * an int type.
-     */
-    private boolean isInt(String string) {
-        String pattern = "-?\\d+";
-        return Pattern.matches(pattern, string);
-    }
-
-    /*
-     * Uses a pattern to verify if given object can be converted to
-     * a double type.
-     */
-    private boolean isDouble(String string) {
-        String pattern = "-?\\d+\\.?\\d*";
-        return Pattern.matches(pattern, string);
     }
     
     private class Parameter {
