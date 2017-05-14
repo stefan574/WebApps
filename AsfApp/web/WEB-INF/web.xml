@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>TypesButtons</servlet-name>
+        <servlet-class>servlets.TypesButtons</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductsButtons</servlet-name>
+        <servlet-class>servlets.ProductsButtons</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchButton</servlet-name>
+        <servlet-class>servlets.SearchButton</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TypesButtons</servlet-name>
+        <url-pattern>/TypesButtons</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductsButtons</servlet-name>
+        <url-pattern>/ProductsButtons</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchButton</servlet-name>
+        <url-pattern>/SearchButton</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
